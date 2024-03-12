@@ -7,34 +7,37 @@ import NorthEastOutlinedIcon from '@mui/icons-material/NorthEastOutlined';
 const DrawerForHolding = ({props}) => {
     console.log("called")
   return (
-    <Drawer open={props.open} onClose={() => props.func(false)} anchor='right'>
+    <Drawer open={props.open} onClose={() => props.func(false)} anchor='right' PaperProps={{
+        sx: {backgroundColor: '#201E2B', color: 'white'}
+    }}>
         <ListItem>
             <ListItemText primary={props.params.Date} />
         </ListItem>
-        <Divider />
+        <Divider sx={{backgroundColor: '#F2CE72'}}/>
         <ListItem>
             <ListItemText primary={`Open: ${props.params.Open}`}  />
         </ListItem>
-        <Divider />
+        <Divider sx={{backgroundColor: '#F2CE72'}}/>
         <ListItem>
             <ListItemText primary={`Close: ${props.params.Close}`} />
         </ListItem>
+        <Divider sx={{backgroundColor: '#F2CE72'}}/>
         <ListItem>
             <ListItemText primary={`High: ${props.params.High}`} />
         </ListItem>
-        <Divider />
+        <Divider sx={{backgroundColor: '#F2CE72'}}/>
         <ListItem>
             <ListItemText primary={`Low: ${props.params.Low}`}  />
         </ListItem>
-        <Divider />
+        <Divider sx={{backgroundColor: '#F2CE72'}}/>
         <ListItem>
             <ListItemText primary={`AClose: ${props.params.AClose}`} />
         </ListItem>
-        <Divider />
+        <Divider sx={{backgroundColor: '#F2CE72'}}/>
         <ListItem>
             <ListItemText primary={`Volume: ${props.params.Volume}`} />
         </ListItem>
-        <Divider />
+        <Divider sx={{backgroundColor: '#F2CE72'}}/>
 
     </Drawer>
   )

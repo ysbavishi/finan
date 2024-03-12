@@ -3,6 +3,7 @@ import React from 'react'
 
 const Filter = ({props}) => {
     const handleChange = (e) => {
+        console.log("HEREE", props.filter)
         props.setFilter(e.target.value);
     }
 

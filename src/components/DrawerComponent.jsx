@@ -6,21 +6,25 @@ import NorthEastOutlinedIcon from '@mui/icons-material/NorthEastOutlined';
 const DrawerComponent = ({props}) => {
     console.log("called")
   return (
-    <Drawer open={props.open} onClose={() => props.func(false)} anchor='right'>
+    <Drawer 
+        open={props.open} 
+        onClose={() => props.func(false)} 
+        anchor='right' 
+        PaperProps={{sx: {backgroundColor: '#201E2B', color: 'white'}}}>
         <ListItem>
             <ListItemText primary={props.Date} />
         </ListItem>
-        <Divider />
+        <Divider sx={{backgroundColor: '#F2CE72'}}/>
         <ListItem>
             <ListItemIcon>
-                <NorthEastOutlinedIcon />
+                <NorthEastOutlinedIcon sx={{color:'greenyellow'}}/>
             </ListItemIcon>
             <ListItemText primary={props.green}  />
         </ListItem>
-        <Divider />
+        <Divider sx={{backgroundColor: '#F2CE72'}}/>
         <ListItem>
             <ListItemIcon>
-                <SouthEastOutlinedIcon />
+                <SouthEastOutlinedIcon sx={{color:'tomato'}} />
             </ListItemIcon>
             <ListItemText primary={props.blue} />
         </ListItem>

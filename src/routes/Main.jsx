@@ -16,7 +16,7 @@ const Landing = () => {
         navigate("bar");
     }
 
-  const [categories, setCategories] = useState(["Line", "Bar", "Scatter", "Pie", "Sensex"])
+  const [categories, setCategories] = useState(["Line", "Bar", "Scatter", "Pie", "Histogram","Sensex"])
   const [currentCategory, setCurrentCategory] = useState("Line");
   const [filter, setFilter] = useState({
     firstPrice: "High",
