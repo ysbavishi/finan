@@ -9,6 +9,7 @@ interface attributeType {
 }
 
 const getArrayData = (dateObj: Array<Object>, attributes: attributeType,timeSpan: string) => {
+    console.log(dateObj)
     console.log(attributes)
     let arrayOfDate = null;
     let firstPrice = null;

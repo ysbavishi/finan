@@ -7,14 +7,13 @@ import SouthEastOutlinedIcon from '@mui/icons-material/SouthEastOutlined';
 import NorthEastOutlinedIcon from '@mui/icons-material/NorthEastOutlined';
 import DrawerComponent from './DrawerComponent'
 import BarDialg from './BarDialg'
-
-const Line = ({props}) => {
+const Ticker = ({props}) => {
     const [data,setData] = useState([])
     const [historicalDate, setHistoricalDate] = useState([])
     const [lowAndBuyPrice, setLowAndBuyPrice] = useState([])
     const [isDataLoaded, setIsDataLoaded] = useState(false)
-    const [highPrice, setHighPrice] = useState([])
-    const [closePrice, setClosePrice] = useState([])
+    const [firstPrice, setFirstPrice] = useState([])
+    const [secondPrice, setSecondPrice] = useState([])
     const [openDrawer, setOpenDrawer] = useState(false)
     const [dateToPass, setDateToPass] = useState()
     const [highData, setHighData] = useState(0)
@@ -31,16 +30,23 @@ const Line = ({props}) => {
 
     const getDataHandler = async () => {
         let dat;
-        await getData('data.csv', function(dataObj) {
+        await getData(`${props.currentTicker}.csv`, function(dataObj) {
             dat = dataObj;
         });
         const arrData = getArrayData(dat, props.filter ,props.period); 
         setHistoricalDate(arrData.arrayOfDate)
-        setHighPrice(arrData.firstPrice)
-        setClosePrice(arrData.secondPrice)
-        console.log(highPrice)
-        console.log(closePrice)
+        setFirstPrice(arrData.firstPrice)
+        // setSecondPrice(arrData.secondPrice)
         return dat
+    }
+
+    const getTickerHandler = async () => {
+        let dat;
+        await getData(`${props.currentTicker2}.csv`, function(dataObj) {
+            dat = dataObj;
+        });
+        const arrData = getArrayData(dat, props.filter ,props.period); 
+        setSecondPrice(arrData.firstPrice)
     }
 
     const drawerHandler = (event, d) => {
@@ -53,8 +59,6 @@ const Line = ({props}) => {
     } 
 
     useEffect(() => {
-            console.log(highPrice)
-            console.log(closePrice)
             const handleResize = () => {
                 if (screenSize.width < window.innerWidth || screenSize.height > window.innerHeight ) {
                     setScreenSize({
@@ -71,13 +75,20 @@ const Line = ({props}) => {
             setIsDataLoaded(false);
             let tempData = getDataHandler();
             setData(tempData);
+            getTickerHandler();
             setIsDataLoaded(true);
             window.addEventListener('resize', handleResize);
             return () => {
                 window.removeEventListener('resize', handleResize);
             }
-    },[props.period, screenSize, props.filter ])
+    },[props.period, screenSize, props.filter, props.currentTicker, props.attribute, props.currentTicker2])
 
+  const colors = {
+    "apple": "#F2CE72",
+    "meta": "#3B48E0",
+    "data": "tomato",
+    "microsoft": "#02B2AF"
+  }
 
   return (
     <div>
@@ -93,13 +104,14 @@ const Line = ({props}) => {
             }]}
             series={[
                 {
-                    label: props.filter.firstPrice,
-                    data: highPrice,
-                    
+                    label: props.currentTicker,
+                    data: firstPrice,
+                    color: props.currentTicker === "apple" ? colors.apple : props.currentTicker === "data" ? colors.data : props.currentTicker === "meta" ? colors.meta : colors.microsoft
                 },
                 {
-                    label: props.filter.secondPrice === 'Close' ? 'Sell' : 'Buy', 
-                    data: closePrice,
+                    label: props.currentTicker2, 
+                    data: secondPrice,
+                    color: props.currentTicker2 === "apple" ? colors.apple : props.currentTicker2 === "data" ? colors.data : props.currentTicker2 === "meta" ? colors.meta : colors.microsoft
                     
                 },
             ]}
@@ -137,7 +149,10 @@ const Line = ({props}) => {
             /> 
             </div>
             {openDrawer ? 
-                <DrawerComponent props={{func: setOpenDrawer, Date: dateToPass, green: highData, blue: closeData, open: openDrawer}} />
+                <div>
+                {/* <DrawerComponent props={{func: setOpenDrawer, Date: dateToPass, green: highData, blue: closeData, open: openDrawer}} /> */}
+                <BarDialg props={{func: setOpenDrawer, open: openDrawer, ticker1: props.currentTicker, ticker2:  props.currentTicker2, tickerPrice1: highData, tickerPrice2: closeData}}/>
+                </div>
             :
                 null
             }
@@ -147,4 +162,4 @@ const Line = ({props}) => {
   )
 }
 
-export default Line
+export default Ticker

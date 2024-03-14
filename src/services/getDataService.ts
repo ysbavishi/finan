@@ -1,9 +1,8 @@
 import * as Papa from 'papaparse';
 
 // Get data from csv and parses it to JSON
-const getData = async (callback: any) => {
-    const csv = await fetch('./data.csv').then(res => res.text())
-    const filePath = "./data.csv";
+const getData = async (filename: string, callback: any) => {
+    const csv = await fetch(`./${filename}`).then(res => res.text())
     const results =  Papa.parse(csv, {
         header: true,
         complete: function(input: any) {
@@ -12,6 +11,7 @@ const getData = async (callback: any) => {
     })
     return results.data
 }
+
 
 /*
 const getData = async (callback: any) => {

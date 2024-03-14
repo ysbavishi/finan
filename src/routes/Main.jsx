@@ -10,13 +10,18 @@ import Events from '../components/Events';
 import Line from '../components/Line';
 import Holding from '../components/Holding';
 import Progress from '../components/In-progress';
+import Ticker from '../components/Ticker';
 const Landing = () => {
     const navigate = useNavigate();
     const navigateToBar = () => {
         navigate("bar");
     }
-
-  const [categories, setCategories] = useState(["Line", "Bar", "Scatter", "Pie", "Histogram","Sensex"])
+  
+  const [attribute, setAttribute] = useState('High');
+  const ticker = ['data', 'apple', 'meta', 'microsoft']
+  const [currentTicker, setCurrentTicker]= useState('data')
+  const [currentTicker2, setCurrentTicker2]= useState('apple')
+  const [categories, setCategories] = useState(["Line", "Bar", "Scatter", "Pie", "Histogram","Sensex", "Ticker"])
   const [currentCategory, setCurrentCategory] = useState("Line");
   const [filter, setFilter] = useState({
     firstPrice: "High",
@@ -41,14 +46,16 @@ const Landing = () => {
           backgroundColor:'#241F3C'
           }}
         >
-          <Events props={{filter, period, func1: setFilter, func2:setPeriod}}/>
+          <Events props={{filter, period, ticker, currentCategory, currentTicker, attribute, currentTicker2, setCurrentTicker2, setAttribute, setCurrentTicker, func1: setFilter, func2:setPeriod}}/>
         {currentCategory === 'Line' ? 
           <Line props={{period, filter}}/>
         
         :
           currentCategory === 'Sensex' ?
             <Holding/>
-          : <Progress />
+          : currentCategory === 'Ticker' ? 
+            <Ticker props={{currentTicker, currentTicker2,period, filter, attribute}} />
+          :<Progress />
         }
         </div>
         </Box>

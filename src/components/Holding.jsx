@@ -12,7 +12,7 @@ const Holding = ({props}) => {
 
     const getDataHandler = async () => {
         let dat;
-        await getData(function(dataObj) {
+        await getData('data.csv',function(dataObj) {
             dat = dataObj;
         });
         setData(dat);

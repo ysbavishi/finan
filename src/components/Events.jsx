@@ -2,6 +2,8 @@ import React from 'react'
 import { Typography, Box } from '@mui/material'
 import Filter from './Filter'
 import TimeSpan from './TimeSpan'
+import TickerFilter from './TickerFilter'
+import Attribute from './Attribute'
 
 const Events = ({props}) => {
   return (
@@ -15,8 +17,11 @@ const Events = ({props}) => {
           marginTop={'20px'}
           gap = {2}
         >
-        <Filter props={{filter: props.filter, setFilter: props.func1}} />
+        <Filter props={{currentCategory: props.currentCategory, filter: props.filter, setFilter: props.func1}} />
         <TimeSpan props={{period: props.period, setPeriod: props.func2}} />
+        <TickerFilter props={{currentCategory: props.currentCategory, currentTicker: props.currentTicker, setCurrentTicker: props.setCurrentTicker,ticker: props.ticker}} />
+        <TickerFilter props={{currentCategory: props.currentCategory, currentTicker: props.currentTicker2, setCurrentTicker: props.setCurrentTicker2,ticker: props.ticker}} />
+        <Attribute props={{currentCategory: props.currentCategory, attribute: props.attribute, setFilter: props.func1, setAttribute: props.setAttribute }} />
         </Box>
     </Box>
   )
